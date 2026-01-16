@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack Sim</title>
+    <link rel="stylesheet" href="css/default.css">
+
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Blackjack Simulator for Casio</h1>
+    </header>
+    <main>
+        <section id="game-area">
+            <div id="dealer-hand" class="hand">
+                <h2>Dealer's Hand</h2>
+                <div class="cards"></div>
+                <div class="total">Total: <span id="dealer-total">0</span></div>
+            </div>
+            <div id="player-hand" class="hand">
+                <h2>Your Hand</h2>
+                <div class="cards"></div>
+                <div class="total">Total: <span id="player-total">0</span></div>
+            </div>
+        </section>
+        <section id="controls">
+            <button id="hit-button">Hit</button>
+            <button id="stand-button">Stand</button>
+            <button id="new-game-button">New Game</button>
+        </section>
+        <section id="message-area">
+            <p id="message"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; ShionGT Github</p>
+    </footer>
+</body>
