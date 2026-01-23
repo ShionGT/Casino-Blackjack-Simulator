@@ -142,6 +142,7 @@ class Player {
 
         this.isStanding = false;
 
+        this.canBet = true;
         this.bet = 0;
         this.balance = 10000;
         this.total_money_used = this.balance;
@@ -171,14 +172,20 @@ class Player {
         if (!this.isStanding) {
             this.drawCard();
         }
+        this.canBet = false;
     }
 
     stand() {
         this.isStanding = true;
     }
 
-    resetHand() {
+    reset() {
         this.hand = [];
+        // for animation purposes
+        this.isStanding = false;
+        this.isWait = false;
+        this.bet = 0;
+        this.canBet = true;
     }
 
     // Money management
@@ -187,7 +194,7 @@ class Player {
         if (amount > this.balance) {
             throw new Error("Insufficient balance to place bet.");
         }
-        this.bet = amount;
+        this.bet += amount;
         this.balance -= amount;
     }
 
@@ -280,10 +287,10 @@ class Table {
         this.isGameOver = false;
     }
 
-    reset() {
-        this.deck = new Deck();
-        this.dealer.resetHand();
-        this.player.resetHand();
+    nextRound() {
+        this.deck.resetCards();
+        this.dealer.reset();
+        this.player.reset();
         this.isGameOver = false;
     }
 
@@ -335,11 +342,11 @@ class Table {
             card.process();
         }
 
-
         document.getElementById("player-total").innerText = this.player.getHandValue();
-        if (this.player.isBusted() || this.player.isStanding) {
-            document.getElementById("dealer-total").innerText = this.dealer.getHandValue();
-        }
+        document.getElementById("dealer-total").innerText = this.dealer.getHandValue();
+
+        document.getElementById("player-balance").innerText = this.player.balance;
+        document.getElementById("player-bet-balance").innerText = this.player.bet;
 
     }
 
@@ -373,16 +380,22 @@ class Table {
             ctx.fillStyle = "white";
             ctx.font = "14px Arial";
             let message = "";
+
             if (this.player.isBusted()) {
                 message = "21点を超えて失格。";
+                this.player.loseBet();
             } else if (this.dealer.isBusted()) {
                 message = "相手が21点を超えて失格。勝ち！";
+                this.player.winBet();
             } else if (this.player.hasWonAgainst(this.dealer)) {
                 message = "勝ち！";
+                this.player.winBet();
             } else if (this.player.hasTiedWith(this.dealer)) {
                 message = "Push!";
+                this.player.pushBet()
             } else {
                 message = "負け";
+                this.player.loseBet();
             }
             ctx.fillText(message, this.width / 2 - 100, this.height - 25);
         }
@@ -392,12 +405,36 @@ class Table {
 
 
 const table = new Table();
+
+
+document.getElementById("new-round").addEventListener("click", () => {
+    table.nextRound();
+});
 document.getElementById("hit-button").addEventListener("click", () => {
     table.player.hit();
 });
 document.getElementById("stand-button").addEventListener("click", () => {
     table.player.stand();
 });
+
+// bets area
+document.getElementById("bet-1000").addEventListener("click", () => {
+    if (table.player.canBet) {
+        table.player.placeBet(1000);
+    }
+});
+document.getElementById("bet-3000").addEventListener("click", () => {
+    if (table.player.canBet) {
+        table.player.placeBet(3000);
+    }});
+document.getElementById("bet-5000").addEventListener("click", () => {
+    if (table.player.canBet) {
+        table.player.placeBet(5000);
+    }});
+document.getElementById("bet-10000").addEventListener("click", () => {
+    if (table.player.canBet) {
+        table.player.placeBet(1000);
+    }});
 
 // Main loop
 setInterval(() => {
