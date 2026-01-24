@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,49 +9,60 @@
 
     <script src="js/app.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Blackjack</h1>
     </header>
     <main>
         <section id="hand-area">
-            <div id="dealer-hand" class="hand">
-                <h2>ディーラーの手札</h2>
-                <div class="cards"></div>
-                <div class="total">合計: <span id="dealer-total">0</span></div>
-            </div>
             <div id="player-hand" class="hand">
                 <h2>あなたの手札</h2>
                 <div class="cards"></div>
-                <div class="total">合計: <span id="player-total">0</span></div>
+                <p class="total">合計: <span id="player-total">0</span></p>
+            </div>
+            <div id="dealer-hand" class="hand">
+                <h2>ディーラの手札</h2>
+                <div class="cards"></div>
+                <p class="total">合計: <span id="dealer-total">0</span></p>
             </div>
         </section>
-        <button id="new-round">次のラウンドへ</button>
         <section id="play-area">
-        <canvas id="table-canvas">
-            Failed to load canvas.
-        </canvas>
+            <canvas id="table-canvas">
+                Failed to load canvas.
+            </canvas>
         </section>
-        <section id="controls">
-            <button id="hit-button">Hit</button>
-            <button id="stand-button">Stand</button>
-        </section>
+        <div id="controls">
+            <div class="contorl-bt">
+                <button id="hit-button">Hit　</button>
+                <button id="stand-button">Stand　</button>
+            </div>
+            <div class="contorl-bt">
+                <button id="new-round">次のラウンドへ</button>
+            </div>
+        </div>
         <section id="money-area">
-            <p>所持金: <span id="player-balance">0</span></p>
-            <p>賭け金: <span id="player-bet-balance">0</span></p>
-
-        </section>
-        <section id="betting">
-            <button id="bet-1000">1000</button>
-            <button id="bet-3000">3000</button>
-            <button id="bet-5000">5000</button>
-            <button id="bet-10000">10000</button>
+            <div id="money-text-area">
+                <p id="player-money-text">所持金: <span id="player-balance">0</span></p>
+                <p id="player-bet-text">賭け金: <span id="player-bet-balance">0</span></p>
+            </div>
+            <div>
+                <button id="bet-1000" class="bet-bt">1000</button>
+                <button id="bet-3000" class="bet-bt">3000</button>
+                <button id="bet-5000" class="bet-bt">5000</button>
+                <button id="bet-10000" class="bet-bt">10000</button>
+            </div>
         </section>
         <section id="message-area">
             <p id="message"></p>
         </section>
     </main>
     <footer>
-        <p>&copy; ShionGT Github</p>
+        <p class="disclaimer">
+            このブラックジャックシミュレーターは、教育的な目的のために開発されたものです。
+            <br>実際のギャンブルや賭け行為を行うためのものではありません。
+            <br>本プロジェクトは、ギャンブルの実態を伝えることを目的としており、ギャンブルを勧める意図は一切ありません。
+        </p>
+        <!-- <p>&copy; ShionGT Github</p> -->
     </footer>
 </body>

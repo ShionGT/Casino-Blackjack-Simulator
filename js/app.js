@@ -433,7 +433,7 @@ document.getElementById("bet-5000").addEventListener("click", () => {
     }});
 document.getElementById("bet-10000").addEventListener("click", () => {
     if (table.player.canBet) {
-        table.player.placeBet(1000);
+        table.player.placeBet(10000);
     }});
 
 // Main loop
